@@ -1,0 +1,47 @@
+import { AnimatedThemeToggler } from "../ui/animated-theme-toggler";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import UserPlusIcon from "../ui/user-plus-icon";
+import UserCheckIcon from "../ui/user-check-icon";
+import { Button } from "../ui/button";
+
+export default function Sidebar() {
+  return (
+    <div className="absolute z-10  top-4 left-60 w-xl  border flex bg-transparent backdrop-blur-2xl   justify-between gap-4  items-center rounded-xl p-2  ">
+      <div className="flex justify-center items-center gap-2">
+        <SignedIn>
+          <UserButton showName />
+        </SignedIn>
+
+        <SignedOut>
+          <SignInButton mode="modal" oauthFlow="popup" asChild>
+            <a className=" cursor-pointer flex justify-center  items-center ">
+              <Button size="sm" variant="link">
+                Login
+              </Button>
+            </a>
+          </SignInButton>
+          <SignUpButton mode="modal" oauthFlow="popup" asChild>
+            <a
+              className="mr-4 cursor-pointer flex justify-center items-center "
+              href="/NewUser"
+            >
+              <Button variant="link" size="sm">  
+                Signup
+              </Button>
+            </a>
+          </SignUpButton>
+        </SignedOut>
+      </div>
+
+      <div className="flex justify-center items-center">
+        <AnimatedThemeToggler />
+      </div>
+    </div>
+  );
+}
