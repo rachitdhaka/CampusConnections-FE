@@ -19,12 +19,12 @@ export default function Sidebar() {
         </SignedIn>
 
         <SignedOut>
-          <SignInButton mode="modal">
+          <SignInButton mode="modal" oauthFlow="popup">
             <Button size="sm" variant="link" className="cursor-pointer">
               Login
             </Button>
           </SignInButton>
-          <SignUpButton mode="modal">
+          <SignUpButton mode="modal" oauthFlow="popup">
             <Button variant="link" size="sm" className="mr-4 cursor-pointer">
               Signup
             </Button>
