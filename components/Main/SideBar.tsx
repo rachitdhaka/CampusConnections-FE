@@ -34,6 +34,8 @@ export default function Sidebar() {
 
       <div className="flex justify-center items-center">
         <AnimatedThemeToggler />
+
+        
       </div>
     </div>
   );

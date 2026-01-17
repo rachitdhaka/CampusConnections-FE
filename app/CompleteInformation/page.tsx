@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
@@ -39,7 +39,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function CompleteInformationPage() {
+export default  function CompleteInformationPage() {
   const router = useRouter();
   const { user } = useUser();
   
@@ -55,25 +55,40 @@ export default function CompleteInformationPage() {
       batch: "",
     },
   });
+  
+  
+
 
   async function onSubmit(data: FormValues) {
+
+    const geoCodeResponse = await axios.get(
+      `https://geocode.maps.co/search?q=${data.area}+${data.city}&api_key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`
+    );
+
+    console.log(geoCodeResponse.data);
+
+    let lat=geoCodeResponse.data[0].lat;
+    let lon=geoCodeResponse.data[0].lon;
     try {
       const mainData = {
         name: user?.fullName,
         email: user?.primaryEmailAddress?.emailAddress,
         company: data.company,
         role: data.role,
-        workingLocation: `${data.area}, ${data.city}`,
+        area:data.area,
+        city:data.city,
+        lon:lon,
+        lat:lat,
         contact: data.contact,
         batch: data.batch,
         college: data.college,
       };
       console.log(mainData);
-      // await axios.post("http://localhost:1000/user/userInformation", mainData);
+      await axios.post("http://localhost:1000/user/userInformation", mainData);
       toast.success("Profile updated successfully");
-      // setTimeout(() => {
-      //   router.push("/dashboard");
-      // }, 1000);
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     } catch (error) {
       toast.error("Failed to update profile");
     }
