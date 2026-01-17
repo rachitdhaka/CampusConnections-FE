@@ -19,22 +19,15 @@ export default function Sidebar() {
         </SignedIn>
 
         <SignedOut>
-          <SignInButton mode="modal" oauthFlow="popup" asChild>
-            <a className=" cursor-pointer flex justify-center  items-center ">
-              <Button size="sm" variant="link">
-                Login
-              </Button>
-            </a>
+          <SignInButton mode="modal">
+            <Button size="sm" variant="link" className="cursor-pointer">
+              Login
+            </Button>
           </SignInButton>
-          <SignUpButton mode="modal" oauthFlow="popup" asChild>
-            <a
-              className="mr-4 cursor-pointer flex justify-center items-center "
-              href="/NewUser"
-            >
-              <Button variant="link" size="sm">  
-                Signup
-              </Button>
-            </a>
+          <SignUpButton mode="modal">
+            <Button variant="link" size="sm" className="mr-4 cursor-pointer">
+              Signup
+            </Button>
           </SignUpButton>
         </SignedOut>
       </div>

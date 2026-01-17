@@ -1,9 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Map, MapClusterLayer, MapPopup, MapControls, useMap } from "@/components/ui/map";
+import {
+  Map,
+  MapClusterLayer,
+  MapPopup,
+  MapControls,
+  useMap,
+} from "@/components/ui/map";
 import Sidebar from "./SideBar";
-
 
 // to remove the pop
 function MapClickHandler({ onMapClick }: { onMapClick: () => void }) {
@@ -256,11 +261,8 @@ export default function ClusterMap() {
 
   return (
     <div className="h-full w-full rounded-xl overflow-hidden">
-
       <Sidebar />
       <Map center={[78.9629, 20.5937]} zoom={4} fadeDuration={0}>
-
-       
         <MapClickHandler onMapClick={() => setSelectedPoint(null)} />
         <MapClusterLayer<PlaceProperties>
           data={placesGeoJSON}
@@ -268,7 +270,7 @@ export default function ClusterMap() {
           clusterMaxZoom={14}
           clusterColors={["#22c55e", "#eab308", "#ef4444"]}
           pointColor="#3b82f6"
-          onPointMouseEnter={(feature, coordinates) => {
+          onPointClick={(feature, coordinates) => {
             setSelectedPoint({
               coordinates,
               properties: feature.properties,
